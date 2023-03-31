@@ -1,11 +1,11 @@
 const contactsOperations = require("../models/contactsOperations");
-const { contactSchema } = require("../schemas/contactSchema");
+const { contactUpdateSchema } = require("../schemas/contactSchema");
 
 const updateContact = async (req, res, next) => {
   const { contactId } = req.params;
 
   try {
-    const { error } = contactSchema.validate(req.body);
+    const { error } = contactUpdateSchema.validate(req.body);
 
     if (error) {
       error.status = 400;
