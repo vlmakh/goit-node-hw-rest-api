@@ -19,12 +19,14 @@ const updateContact = async (req, res, next) => {
     }
 
     const data = await contactsOperations.updateContact(contactId, req.body);
+
     if (!data) {
       res
         .status(404)
         .json({ message: `Contact with id ${contactId} was not found` });
       return;
     }
+
     res.status(200).json(data);
   } catch (error) {
     next(error);

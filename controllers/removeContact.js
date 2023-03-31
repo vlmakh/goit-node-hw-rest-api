@@ -11,6 +11,7 @@ const removeContact = async (req, res, next) => {
         .json({ message: `Contact with id ${contactId} was not found` });
       return;
     }
+
     res.status(200).json({ message: "Contact was deleted", ...data });
   } catch (error) {
     next(error);

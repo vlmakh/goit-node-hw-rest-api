@@ -11,6 +11,7 @@ const getContactById = async (req, res, next) => {
         .json({ message: `Contact with id ${contactId} was not found` });
       return;
     }
+
     res.status(200).json(data);
   } catch (error) {
     next(error);
