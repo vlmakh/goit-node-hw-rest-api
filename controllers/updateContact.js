@@ -1,17 +1,11 @@
 const contactsOperations = require("../models/contactsOperations");
-const Joi = require("joi");
-
-const schema = Joi.object({
-  name: Joi.string().required(),
-  phone: Joi.string().required(),
-  email: Joi.string().email().required(),
-});
+const { contactSchema } = require("../schemas/contactSchema");
 
 const updateContact = async (req, res, next) => {
   const { contactId } = req.params;
 
   try {
-    const { error } = schema.validate(req.body);
+    const { error } = contactSchema.validate(req.body);
 
     if (error) {
       error.status = 400;
