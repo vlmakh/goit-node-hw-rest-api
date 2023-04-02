@@ -1,5 +1,5 @@
 const { Contact, contactUpdateSchema } = require("../models/contactSchema");
-// const createError = require("http-errors");
+const createError = require("http-errors");
 
 const updateContact = async (req, res, next) => {
   try {
@@ -16,11 +16,7 @@ const updateContact = async (req, res, next) => {
     });
 
     if (!data) {
-      res
-        .status(404)
-        .json({ message: `Contact with id ${contactId} was not found` });
-      return;
-      // throw createError(404, `Contact with id ${contactId} was not found`);
+      throw createError(404, `Contact with id ${contactId} was not found`);
     }
     res.status(200).json(data);
   } catch (error) {
