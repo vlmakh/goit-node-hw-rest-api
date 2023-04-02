@@ -1,10 +1,11 @@
-const contactsOperations = require("../models/contactsOperations");
+const { Contact } = require("../models/contactSchema");
 
 const getContactById = async (req, res, next) => {
   const { contactId } = req.params;
 
   try {
-    const data = await contactsOperations.getContactById(contactId);
+    const data = await Contact.findById(contactId);
+
     if (!data) {
       res
         .status(404)

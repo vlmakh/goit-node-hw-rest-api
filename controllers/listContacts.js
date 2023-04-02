@@ -1,10 +1,10 @@
-const contactsOperations = require("../models/contactsOperations");
+const { Contact } = require("../models/contactSchema");
 
 const listContacts = async (req, res, next) => {
   try {
-    const data = await contactsOperations.listContacts();
+    const data = await Contact.find({});
 
-    res.json(data);
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }

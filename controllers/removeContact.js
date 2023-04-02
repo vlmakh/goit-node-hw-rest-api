@@ -1,10 +1,11 @@
-const contactsOperations = require("../models/contactsOperations");
+const { Contact } = require("../models/contactSchema");
 
 const removeContact = async (req, res, next) => {
   const { contactId } = req.params;
 
   try {
-    const data = await contactsOperations.removeContact(contactId);
+    const data = await Contact.findByIdAndDelete(contactId);
+
     if (!data) {
       res
         .status(404)
@@ -12,7 +13,7 @@ const removeContact = async (req, res, next) => {
       return;
     }
 
-    res.status(200).json({ message: "Contact was deleted", ...data });
+    res.status(200).json({ message: "contact deleted", ...data._doc });
   } catch (error) {
     next(error);
   }

@@ -1,4 +1,4 @@
-const { Contact, joiFavSchema } = require("../models/contactsSchema");
+const { Contact, joiFavSchema } = require("../models/contactSchema");
 const createError = require("http-errors");
 
 const updateFavorite = async (req, res, next) => {

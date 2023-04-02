@@ -23,10 +23,16 @@ const contactSchema = Schema(
   { versionKey: false, timestamps: true }
 );
 
-const joiMainSchema = Joi.object({
+const contactAddSchema = Joi.object({
   name: Joi.string().required(),
   phone: Joi.string().required(),
   email: Joi.string().email().required(),
+});
+
+const contactUpdateSchema = Joi.object({
+  name: Joi.string(),
+  phone: Joi.string(),
+  email: Joi.string().email(),
 });
 
 const joiFavSchema = Joi.object({
@@ -37,6 +43,7 @@ const Contact = model("contact", contactSchema);
 
 module.exports = {
   Contact,
-  joiMainSchema,
+  contactAddSchema,
+  contactUpdateSchema,
   joiFavSchema,
 };
