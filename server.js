@@ -10,7 +10,7 @@ mongoose
   .then(() => {
     console.log("Database Mongo connected successfully");
     app.listen(PORT);
-    console.log("Server started on port 3000");
+    console.log(`Server started on port ${PORT}`);
   })
   .catch((error) => {
     console.log(error.message);
