@@ -35,7 +35,7 @@ const contactUpdateSchema = Joi.object({
   email: Joi.string().email(),
 });
 
-const joiFavSchema = Joi.object({
+const contactFavSchema = Joi.object({
   favorite: Joi.bool().required(),
 });
 
@@ -45,5 +45,5 @@ module.exports = {
   Contact,
   contactAddSchema,
   contactUpdateSchema,
-  joiFavSchema,
+  contactFavSchema,
 };

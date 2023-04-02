@@ -1,4 +1,4 @@
-const { Contact, joiFavSchema } = require("../models/contactSchema");
+const { Contact, contactFavSchema } = require("../models/contactSchema");
 const createError = require("http-errors");
 
 const updateFavorite = async (req, res, next) => {
@@ -6,7 +6,7 @@ const updateFavorite = async (req, res, next) => {
   const { favorite } = req.body;
 
   try {
-    const { error } = joiFavSchema.validate({ favorite });
+    const { error } = contactFavSchema.validate({ favorite });
 
     if (error) {
       error.status = 400;

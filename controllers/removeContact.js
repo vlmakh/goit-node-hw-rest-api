@@ -13,7 +13,9 @@ const removeContact = async (req, res, next) => {
       return;
     }
 
-    res.status(200).json({ message: "contact deleted", ...data._doc });
+    res
+      .status(200)
+      .json({ message: "Contact deleted successfully", ...data._doc });
   } catch (error) {
     next(error);
   }
