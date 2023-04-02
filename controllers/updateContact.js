@@ -1,4 +1,4 @@
-const { Contact, contactUpdateSchema } = require("../models/contactSchema");
+const { Contact, contactUpdateSchema } = require("../models/contact");
 const createError = require("http-errors");
 
 const updateContact = async (req, res, next) => {
