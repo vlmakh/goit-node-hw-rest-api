@@ -16,7 +16,7 @@ const auth = async (req, res, next) => {
 
     const user = await User.findById(id);
 
-    if (!user || !user.token) {
+    if (!user || !user.token || token !== user.token) {
       throw new Unauthorized("Unauthorized");
     }
 
