@@ -10,7 +10,7 @@ const updateSubscription = async (req, res, next) => {
 
     if (error) {
       error.status = 400;
-      error.message = "missing field subscription";
+      error.message = "Missing field subscription";
       throw error;
     }
 
@@ -25,7 +25,13 @@ const updateSubscription = async (req, res, next) => {
     if (!data) {
       throw createError(404, `User with id ${userId} was not found`);
     }
-    res.status(200).json(data);
+    res.status(200).json({
+      message: "Status updated successfully",
+      user: {
+        email: data.email,
+        subscription: data.subscription,
+      },
+    });
   } catch (error) {
     next(error);
   }
