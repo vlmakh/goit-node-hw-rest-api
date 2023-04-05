@@ -2,7 +2,7 @@ const { User, userSubsrSchema } = require("../../models/user");
 const createError = require("http-errors");
 
 const updateSubscription = async (req, res, next) => {
-  const { userId } = req.params;
+  const { _id } = req.user;
   const { subscription } = req.body;
 
   try {
@@ -15,7 +15,7 @@ const updateSubscription = async (req, res, next) => {
     }
 
     const data = await User.findByIdAndUpdate(
-      userId,
+      _id,
       { subscription },
       {
         new: true,
@@ -23,7 +23,7 @@ const updateSubscription = async (req, res, next) => {
     );
 
     if (!data) {
-      throw createError(404, `User with id ${userId} was not found`);
+      throw createError(404, `User was not found`);
     }
     res.status(200).json({
       message: "Status updated successfully",
