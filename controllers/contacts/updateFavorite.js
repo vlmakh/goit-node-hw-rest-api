@@ -10,7 +10,7 @@ const updateFavorite = async (req, res, next) => {
 
     if (error) {
       error.status = 400;
-      error.message = "missing field favorite";
+      error.message = "Missing field favorite";
       throw error;
     }
 
