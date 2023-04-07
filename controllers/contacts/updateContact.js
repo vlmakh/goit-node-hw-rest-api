@@ -2,8 +2,10 @@ const { Contact, contactUpdateSchema } = require("../../models/contact");
 const createError = require("http-errors");
 
 const updateContact = async (req, res, next) => {
+  const { _id } = await req.user;
+  const { contactId } = req.params;
+
   try {
-    const { contactId } = req.params;
     const { error } = contactUpdateSchema.validate(req.body);
 
     if (error) {
@@ -11,9 +13,13 @@ const updateContact = async (req, res, next) => {
       throw error;
     }
 
-    const data = await Contact.findByIdAndUpdate(contactId, req.body, {
-      new: true,
-    });
+    const data = await Contact.findOneAndUpdate(
+      { _id: contactId, owner: _id },
+      req.body,
+      {
+        new: true,
+      }
+    );
 
     if (!data) {
       throw createError(404, `Contact with id ${contactId} was not found`);
