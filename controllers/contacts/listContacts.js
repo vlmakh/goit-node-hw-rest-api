@@ -15,10 +15,8 @@ const listContacts = async (req, res, next) => {
   }
 
   if (phone) {
-    listParams = { ...listParams, phone };
+    listParams = { ...listParams, phone: { $regex: phone, $options: "i" } };
   }
-
-  console.log(listParams);
 
   const { page = 1, limit = 5 } = req.query;
   const skip = (page - 1) * limit;
