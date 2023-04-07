@@ -4,18 +4,18 @@ const listContacts = async (req, res, next) => {
   const { _id } = await req.user;
   const { favorite = null, name = null, phone = null } = req.query;
 
-  let listParams = { owner: _id };
+  const listParams = { owner: _id };
 
   if (favorite) {
-    listParams = { ...listParams, favorite };
+    listParams.favorite = favorite;
   }
 
   if (name) {
-    listParams = { ...listParams, name: { $regex: name, $options: "i" } };
+    listParams.name = { $regex: name, $options: "i" };
   }
 
   if (phone) {
-    listParams = { ...listParams, phone: { $regex: phone, $options: "i" } };
+    listParams.phone = { $regex: phone, $options: "i" };
   }
 
   const { page = 1, limit = 5 } = req.query;
