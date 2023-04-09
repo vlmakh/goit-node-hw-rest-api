@@ -35,7 +35,7 @@ const updateAvatar = async (req, res, next) => {
     });
   } catch (error) {
     await fs.unlink(tmpPath);
-    throw error;
+    next(error);
   }
 };
 
