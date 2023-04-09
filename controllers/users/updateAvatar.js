@@ -18,7 +18,7 @@ const updateAvatar = async (req, res, next) => {
 
   try {
     await Jimp.read(tmpPath).then((image) =>
-      image.resize(250, 250).write(tmpPath)
+      image.cover(250, 250).write(tmpPath)
     );
 
     await fs.rename(tmpPath, resPath);
