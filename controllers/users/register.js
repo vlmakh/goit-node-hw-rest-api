@@ -1,6 +1,7 @@
 const { User, userRegSchema } = require("../../models/user");
 const bcrypt = require("bcrypt");
 const { Conflict } = require("http-errors");
+const gravatar = require("gravatar");
 
 const register = async (req, res, next) => {
   try {
@@ -12,18 +13,28 @@ const register = async (req, res, next) => {
     }
 
     const { name, email, password } = req.body;
+    const avatarURL = gravatar.url(email, { s: "250" }, false);
     const user = await User.findOne({ email });
+
     if (user) {
       throw new Conflict(`Email: ${email} in use`);
     }
+
     const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-    const data = await User.create({ name, email, password: hashPassword });
+    const data = await User.create({
+      name,
+      email,
+      password: hashPassword,
+      avatarURL,
+    });
 
     res.status(201).json({
       message: "New user registered successfully",
       user: {
-        email: data.email,
+        name,
+        email,
         subscription: data.subscription,
+        avatarURL,
       },
     });
   } catch (error) {
