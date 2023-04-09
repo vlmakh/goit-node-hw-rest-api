@@ -1,4 +1,4 @@
-const { User } = require("../../models/userSchema");
+const { User } = require("../../models/user");
 const path = require("path");
 const fs = require("fs").promises;
 const Jimp = require("jimp");
@@ -23,11 +23,16 @@ const updateAvatar = async (req, res, next) => {
 
     await fs.rename(tmpPath, resPath);
 
-    const avatarURL = path.join("public", "avatars", avatarName);
+    const avatarURL = path.join("avatars", avatarName);
 
     await User.findByIdAndUpdate(_id, { avatarURL });
 
-    res.json({ avatarURL });
+    res.json({
+      message: "Avatar updated successfully",
+      user: {
+        avatar: avatarURL,
+      },
+    });
   } catch (error) {
     await fs.unlink(tmpPath);
     throw error;

@@ -34,7 +34,7 @@ const register = async (req, res, next) => {
         name,
         email,
         subscription: data.subscription,
-        avatarURL,
+        avatar: avatarURL,
       },
     });
   } catch (error) {
