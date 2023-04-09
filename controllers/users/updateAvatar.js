@@ -17,11 +17,9 @@ const updateAvatar = async (req, res, next) => {
   );
 
   try {
-    await Jimp.read(tmpPath).then((image) =>
-      image.cover(250, 250).write(tmpPath)
-    );
+    const newAvatar = await Jimp.read(tmpPath);
 
-    await fs.rename(tmpPath, resPath);
+    newAvatar.cover(250, 250).write(resPath);
 
     const avatarURL = path.join("avatars", avatarName);
 
@@ -34,8 +32,9 @@ const updateAvatar = async (req, res, next) => {
       },
     });
   } catch (error) {
-    await fs.unlink(tmpPath);
     next(error);
+  } finally {
+    await fs.unlink(tmpPath);
   }
 };
 
