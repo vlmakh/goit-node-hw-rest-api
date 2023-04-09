@@ -4,9 +4,10 @@ const fs = require("fs").promises;
 const Jimp = require("jimp");
 
 const updateAvatar = async (req, res, next) => {
+  const { _id } = req.user;
   const { path: tmpPath, originalname } = req.file;
 
-  const avatarName = `${req.user._id}_${originalname}`;
+  const avatarName = `${_id}_${originalname}`;
   const resPath = path.join(
     __dirname,
     "../../",
@@ -24,7 +25,7 @@ const updateAvatar = async (req, res, next) => {
 
     const avatarURL = path.join("public", "avatars", avatarName);
 
-    await User.findByIdAndUpdate(req.user._id, { avatarURL });
+    await User.findByIdAndUpdate(_id, { avatarURL });
 
     res.json({ avatarURL });
   } catch (error) {
