@@ -3,33 +3,28 @@
 const mongoose = require("mongoose");
 const request = require("supertest");
 const app = require("../../app");
-require("dotenv").config();
 const { DB, PORT = 3000 } = process.env;
-
-const start = async () => {
-  try {
-    await mongoose.connect(DB);
-    console.log("Database Mongo connected successfully");
-
-    return app.listen(PORT, () => {
-      console.log(`Server started on port ${PORT}`);
-    });
-  } catch (error) {
-    console.log(error.message);
-    process.exit(1);
-  }
-};
 
 const credentials = {
   email: "user1@mail.org",
   password: "123456",
 };
 
-describe("test login controller", () => {
+describe("Test of login controller", () => {
   let server;
 
   beforeAll(async () => {
-    server = await start();
+    mongoose
+      .connect(DB)
+      .then(() => {
+        console.log("Database Mongo connected successfully");
+        server = app.listen(PORT);
+        console.log(`Server started on port ${PORT}`);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        process.exit(1);
+      });
   });
 
   afterAll(() => {
