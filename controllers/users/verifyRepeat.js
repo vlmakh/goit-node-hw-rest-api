@@ -5,11 +5,11 @@ const sendEmail = require("../../helpers/sendEmail");
 const verifyRepeat = async (req, res, next) => {
   const { email } = req.body;
 
-  if (!email) {
-    throw new BadRequest("Email is missing");
-  }
-
   try {
+    if (!email) {
+      throw new BadRequest("Missing required field email");
+    }
+
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -24,7 +24,7 @@ const verifyRepeat = async (req, res, next) => {
       to: `${email}`,
       from: "vlmakh@meta.ua",
       subject: "Register new user in Homework-06",
-      html: `<a  href="http://localhost:3001/api/users/verify/${user.verificationToken}" target="_blank">To confirm ${email} please follow this link</a>`,
+      html: `<a  href="http://localhost:3000/api/users/verify/${user.verificationToken}" target="_blank">To confirm ${email} please follow this link</a>`,
     });
 
     const data = {
