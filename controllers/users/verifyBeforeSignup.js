@@ -11,8 +11,10 @@ const verifyBeforeSignup = async (req, res, next) => {
       throw new NotFound("User not found");
     }
 
-    await User.findByIdAndUpdate(user._id, { verify: true });
-    await User.findByIdAndUpdate(user._id, { verificationToken: null });
+    await User.findByIdAndUpdate(user._id, {
+      verify: true,
+      verificationToken: null,
+    });
 
     const data = {
       message: `Verification successful, now you can login`,
